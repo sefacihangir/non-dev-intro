@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Development Intro</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/msg.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="assets/xcode.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<img src="assets/logo.png" class="logo"/>
+		<div class="footnote">msg | April 2017 | Development Introduction</div>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Development Introduction</h1>
+					<h4>For Non-Developers</h3>
+					<p>
+						<small>by <a href="https://serban-petrescu.github.io">Serban Petrescu</a></small>
+					</p>
+				</section>
+				<section>
+					<h3>Our Goals</h3>
+					<ul>
+						<li>To see what development is all about.</li>
+						<li>To clear up some misconceptions.</li>
+						<li>To understand the specific reasoning and decision-making.</li>
+					</ul>
+				</section>
+				<section>
+					<h3><strong>Not</strong> Our Goals</h3>
+					<ul>
+						<li>To learn how to code.</li>
+						<li>To go (too) deep into technical topics.</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Content</h3>
+					<p>We will build a very simple web application and pass through all the typical stages:</p>
+					<ul>
+						<li>Business requirement</li>
+						<li>Analysis and design</li>
+						<li>Development</li>
+						<li>Documentation</li>
+					</ul>
+				</section>
+				<section>
+					<h3><strong>"</strong>Rules<strong>"</strong></h3>
+					<p>At each stage, we will discuss <strong>together</strong> about what has to be done.</p>
+					<small>
+						<ul>
+							<li>Ask any question related to the current topic as soon as you have the chance</li>
+							<li>Any other general questions should be asked at the end</li>
+						</ul>
+					</small>
+				</section>
+				<section>
+					<h3>Overview</h3>
+					<p>The app will manage a list of employees. It will be deployed to the <strong>SAP Cloud Platform</strong> and will use the following technologies:</p>
+					<ul>
+						<li>Java 8</li>
+						<li>JPA</li>
+						<li>JAX-RS</li>
+						<li>SAP UI5</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h3>Business Requirements</h3>
+						<p>Each project should have a <strong>business specification</strong> (the goals and reasoning).</p>
+						<p>Then each concrete requirement should be described.</p>
+						<p>The requirements can be either <strong>functional</strong> (what) or <strong>non-functional</strong> (how).</p>
+					</section>
+					<section>
+						<h3>Purpose</h3>
+						<blockquote>
+						We aim to digitalize the management of our employees by creating an online-tool for storing, retrieving and processing employee data.
+						</blockquote>
+					</section>
+					<section>
+						<h3>Scope</h3>
+						<blockquote>
+							<p>The new solution will work solely with the data related to current and past employees.</p>
+							<p>The data itself consists of:</p>
+							<ul>
+								<li>Full name.</li>
+								<li>Current role.</li>
+								<li>Hire date.</li>
+							</ul>
+						</blockquote>
+					</section>
+					<section>
+						<h3>Functional</h3>
+						<blockquote>
+							<p>When opening the application, a table of employees should be displayed. The table should have two buttons in its header:</p>
+							<small>
+								<ul>
+									<li>A <strong>refresh</strong> button. When pressed, the table contents should be reloaded.</li>
+									<li>An <strong>add</strong> button. When pressed, the “Create Employee” dialog should be opened.</li>
+								</ul>
+							</small>
+						</blockquote>
+					</section>
+					<section>
+						<h3>Functional Cont'd</h3>
+						<blockquote>
+							<p>After pressing the Confirm button of the “Create Employee”, a new employee with the filled in properties should be created.</p>
+							<p>The table should be automatically refreshed to show the new employee.</p>
+						</blockquote>
+					</section>
+					<section>
+						<h4>Mockup</h4>
+						<img src="assets/mockup.png"/>
+					</section>
+					<section>
+						<h3>Non-Functional</h3>
+						<blockquote>
+							<p>The application should be accessible through a browser, with no additional software installation needed.</p>
+							<p>The expected number of concurrent users is in the range 1 – 20.</p>
+						</blockquote>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Analysis and design</h3>
+						<p>A <strong>technology stack</strong> must be chosen such that we can fulfill the requirements.</p>
+						<p>Afterwards, the system architecture and high level design must be engineered.</p>
+						<p>These will act as <strong>blueprints</strong> for the development team.</p>
+					</section>
+					<section>
+						<h3>Analysis</h3>
+						<ul>
+							<li>Data has to be persisted centrally.<br/>
+								<span class="fragment"><strong>&nbsp;&nbsp;&nbsp;&rarr; Database</strong></span></li>
+							<li>Application needs to be accessible without installation.<br/>
+								<span class="fragment"><strong>&nbsp;&nbsp;&nbsp;&rarr; HTTP Server</strong></span></li>
+							<li>UI has to work inside a browser.<span class="fragment"><br/>
+								<strong>&nbsp;&nbsp;&nbsp;&rarr; HTML + JavaScript</strong></span></li>
+							<li>We don’t have any dedicated infrastructure.<span class="fragment"><br/>
+								<strong>&nbsp;&nbsp;&nbsp;&rarr; Cloud</strong></span></li>
+						</ul>
+					</section>
+					<section>
+						<h3>Technologies</h3>
+						<p>Cloud: <strong>SCP</strong>. It takes care of the database and provides a "HTTP Server" (Tomcat).</p>
+						<p>Because of Tomcat, we will use server-side <strong>Java</strong>.</p>
+						<p>UI: <strong>SAP UI5</strong> (can also use e.g. Angular).</p>
+					</section>
+					<section>
+						<h3>High-level Design</h3>
+						<img src="assets/high-level-design.png"/>
+					</section>
+					<section>
+						<h3>Detailed Design</h3>
+						<img src="assets/detailed-design.png"/>
+					</section>
+					<section>
+						<h3>Detailed Design</h3>
+						<ul>
+							<li>The UI will also be shipped within the server application.</li>
+							<li>When the user opens up the app:</li>
+							<ul>
+								<li>The server will redirect him to the index.html.</li>
+								<li>The index.html will load the UI5 libraries.</li>
+								<li>The UI5 libraries will load the view + controller.</li>
+							</ul>
+							<li>The controller will then communicate with the server.</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Implementation</h2>
+						<p>Each developer works on his local environment. Specialized software (git, scm) is used for collaboration and versioning.</p>
+						<p>Periodically the shared environment is updated with the local changes of each developer.</p>
+						<p>Manual / automatic tests should also be written.</p>
+					</section>
+					<section>
+						<h2>Local</h2>
+						<p>First we will implement the application in our local environment. We will build it using Eclipse and test it on a local Tomcat installation.</p>
+					</section>
+					<section>
+						<h2>Cloud</h2>
+						<p>Then we will deploy and test it on the SCP.</p>
+						<p>The local development is setup to mimic the cloud environment.</p>
+					</section>
+					<section>
+						<h1><strong>DEMO</strong></h1>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Documentation</h2>
+						<p>Serves multiple purposes: to facilitate future developments, to ease the induction of new developers, to help the customer.</p>
+						<p>The code is documented during the development phase.</p>
+					</section>
+					<section>
+						<h2>Code Documentation</h2>
+						<p>When writing the code, we have documented every method and class. Now we can generate JavaDoc / JsDoc out of these comments.</p>
+					</section>
+					<section>
+						<h1><strong>DEMO</strong></h1>
+					</section>
+					<section>
+						<h2>Other Documents</h2>
+						<p>Normally, also a series fully-fledged documents are written in this stage:</p>
+						<ul>
+							<li>Technical documentation</li>
+							<li>User guide</li>
+							<li>Installation nodes</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h1><strong>The end</strong></h1>
+					<h4>Thank you for your attention.</h4>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				mouseWheel: true,
+				slideNumber: true,
+				transition: 'slide',
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
