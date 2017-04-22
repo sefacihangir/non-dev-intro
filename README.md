@@ -15,5 +15,6 @@ The main goals for such a presentation are:
  
 You can find the proposed presentation on [GitHub Pages](https://serban-petrescu.github.io/non-dev-intro/) (check out the `gh-pages` branch; thanks go to hakimel for his excellent [Reveal-Js Framework](https://github.com/hakimel/reveal.js/)). 
  
-Apart from the code of this repository, also some very small [JavaDoc](https://serban-petrescu.github.io/non-dev-intro/javadoc/) and [JsDoc](https://serban-petrescu.github.io/non-dev-intro/jsdoc/msg.demo.Employee.html) are produced as part of the workshop.
+Apart from the code of this repository, some very small [JavaDoc](https://serban-petrescu.github.io/non-dev-intro/javadoc/) and [JsDoc](https://serban-petrescu.github.io/non-dev-intro/jsdoc/msg.demo.Employee.html) are produced as part of the workshop.
 
+A mocked version (without the Java backend) of the user interface is available [here on GitHub Pages](https://serban-petrescu.github.io/non-dev-intro/mocked).
